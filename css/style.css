@@ -1,0 +1,273 @@
+/* =========================
+   GLOBAL BACKGROUND
+   Wallpaper + Black Base
+========================= */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.75),
+      rgba(0,0,0,0.75)
+    ),
+    url("../picture/Ai.PNG") center center / cover no-repeat fixed;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+
+/* =====================
+   GLOBAL
+===================== */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  color: #222;
+  background: #000;
+  overflow-x: hidden;
+}
+
+/* =====================
+   BACKGROUND CANVAS
+===================== */
+#network {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+/* =========================
+   BACKGROUND CANVAS
+========================= */
+
+#network {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.85;
+}
+
+
+/* =====================
+   HERO
+===================== */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 5px;
+}
+
+.hero p {
+  opacity: 0.85;
+}
+
+/* =====================
+   PANELS (CARD UI)
+===================== */
+.panel {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* =====================
+   FORM
+===================== */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+button {
+  background: #2fb3c4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* =====================
+   TABLE
+===================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #f2f2f2;
+}
+
+/* =====================
+   LOW STOCK ALERT
+===================== */
+.low-stock {
+  background: #fff3cd !important;
+}
+
+.critical-stock {
+  background: #f8d7da !important;
+}
+
+.stock-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+.stock-ok { background: #198754; }
+.stock-low { background: #ffc107; color:#000; }
+.stock-critical { background: #dc3545; }
+/* =====================
+   POS INVOICE
+===================== */
+#invoice-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px dashed #2fb3c4;
+}
+
+#invoice-box h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.invoice-total {
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+  margin-top: 10px;
+}
+
+/* =====================
+   PRINT
+===================== */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #invoice-box, #invoice-box * {
+    visibility: visible;
+  }
+  #invoice-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+/* =====================
+   BARCODE SCANNER VIDEO
+   এই কোড camera video box ঠিকভাবে দেখানোর জন্য
+===================== */
+#scanner {
+  width: 100%;
+  height: 260px;
+  background: #000;
+  border-radius: 10px;
+  margin: 10px 0;
+  object-fit: cover;
+}
+
+/* Scanner result text */
+#scan-result {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #333;
+}
+/* ================= DASHBOARD ================= */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.dash-box {
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+.dash-box h3 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.dash-box.ok { background: #198754; }
+.dash-box.low { background: #ffc107; color:#000; }
+.dash-box.out { background: #dc3545; }
+/* ================= MODAL ================= */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+}
