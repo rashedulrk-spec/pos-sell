@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- 
+    নোট: Responsive design এর জন্য viewport
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Daily Ledger & Stock</title>
+
+  <!-- 
+    নোট: তোমার আগের সব UI / animation / panel style এখান থেকেই আসে
+  -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+<!-- 
+  নোট: Animated network / background canvas
+-->
+<canvas id="network"></canvas>
+
+<!-- 
+  নোট: Top hero section (title + subtitle)
+-->
+<section class="hero">
+  <div>
+    <h1>Daily Ledger & Stock</h1>
+    <p>Smart Shop POS System</p>
+  </div>
+</section>
+<!-- ================= DASHBOARD SUMMARY ================= -->
+<section class="panel dashboard">
+  <div class="dash-box ok">
+    <h3 id="dash-ok">0</h3>
+    <p>OK Stock</p>
+  </div>
+
+  <div class="dash-box low">
+    <h3 id="dash-low">0</h3>
+    <p>Low Stock</p>
+  </div>
+
+  <div class="dash-box out">
+    <h3 id="dash-out">0</h3>
+    <p>Out of Stock</p>
+  </div>
+</section>
+
+<!-- 
+  নোট: POS Sale Section (Barcode দিয়ে বিক্রি)
+-->
+<section class="panel">
+  <h2>🧾 POS Sale (Barcode)</h2>
+  <p class="subtitle">Scan → Quantity → Auto Invoice</p>
+
+  <form id="pos-form" class="form-row">
+    <input type="text" id="pos-barcode" placeholder="Scan / Barcode" required>
+    <input type="number" id="pos-qty" placeholder="Quantity" required>
+    <button type="submit" class="btn">Sell</button>
+  </form>
+
+  <!-- 
+    নোট: Invoice box (sale হলে JS থেকে show হবে)
+  -->
+  <div id="invoice-box" style="display:none">
+    <h3>🧾 Invoice</h3>
+    <div id="invoice-content"></div>
+    <button onclick="window.print()" class="btn">🖨 Print</button>
+  </div>
+</section>
+
+<!-- 
+  নোট: Barcode Scanner Section (Camera)
+-->
+<section class="panel">
+  <h2>📷 Barcode Scanner</h2>
+  <p class="subtitle">Camera দিয়ে Barcode Scan করো</p>
+
+  <!-- 
+    নোট: Video element
+    autoplay + playsinline = mobile browser support
+  -->
+  <video
+    id="scanner"
+    autoplay
+    playsinline
+    muted
+  ></video>
+
+  <!-- 
+    নোট: Scan result text
+  -->
+  <p id="scan-result"></p>
+
+  <!-- 
+    নোট: Scanner control buttons
+  -->
+  <button onclick="startScanner()" class="btn">Start Scanner</button>
+  <button onclick="stopScanner()" class="btn">Stop</button>
+</section>
+
+<!-- 
+  নোট: Daily Expense Ledger Section
+-->
+<section class="panel">
+  <h2>📒 Daily Expense Ledger</h2>
+  <p class="subtitle">খরচ / ভাড়া / বিদ্যুৎ / বেতন</p>
+
+  <form id="ledger-form" class="form-row">
+    <input type="date" id="l-date" required>
+
+    <select id="l-category" required>
+      <option value="">Category</option>
+      <option value="Rent">ভাড়া</option>
+      <option value="Electricity">বিদ্যুৎ</option>
+      <option value="Salary">বেতন</option>
+      <option value="Transport">যাতায়াত</option>
+      <option value="Other">অন্যান্য</option>
+    </select>
+
+    <input type="number" id="l-amount" placeholder="Amount" required>
+    <input type="text" id="l-note" placeholder="Note (optional)">
+    <button type="submit" class="btn">Add Expense</button>
+  </form>
+
+  <!-- 
+    নোট: Total expense auto calculate হবে JS থেকে
+  -->
+  <h3 style="margin:10px 0">
+    Total Expense: ৳<span id="total-expense-ledger">0</span>
+  </h3>
+
+  <!-- 
+    নোট: Ledger table
+  -->
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Note</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="ledger-body"></tbody>
+  </table>
+</section>
+
+<!-- ================= SCRIPTS ================= -->
+
+<!-- 
+  নোট: ZXing library (barcode scanner engine)
+-->
+<script src="https://unpkg.com/@zxing/library@latest"></script>
+
+<!-- 
+  নোট: Background animation scripts
+-->
+<script src="js/background.js"></script>
+<script src="js/network.js"></script>
+
+<!-- 
+  নোট: Core business logic
+-->
+<script src="js/product.js"></script>
+<script src="js/stock.js"></script>
+<script src="js/sale.js"></script>
+<script src="js/profit.js"></script>
+
+<!-- 
+  নোট: Ledger & Scanner logic
+-->
+<script src="js/ledger.js"></script>
+<script src="js/scanner.js"></script>
+<!-- 🔊 LOW STOCK ALERT SOUND -->
+<!-- নোট: Low / Out stock হলে এই sound বাজবে -->
+<audio id="lowStockSound" preload="auto">
+  <source src="audio/alert.ogg" type="audio/ogg">
+</audio>
+<!-- ================= STOCK HISTORY MODAL ================= -->
+<div id="historyModal" class="modal">
+  <div class="modal-content">
+    <h3>📦 Stock History</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Action</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody id="history-body"></tbody>
+    </table>
+    <button onclick="closeHistory()">Close</button>
+  </div>
+</div>
+
+</body>
+</html>
